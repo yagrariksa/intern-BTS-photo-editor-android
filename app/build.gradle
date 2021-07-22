@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.tools.photolab"
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.1"
+        multiDexEnabled true
+        ndkVersion "21.3.6528147"
+        ndk.abiFilters 'arm64-v8a','x86_64'
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            useProguard true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            useProguard true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+        density {
+            // This property is set to true by default.
+            enableSplit = false
+        }
+        abi {
+            // This property is set to true by default.
+            enableSplit = false
+        }
+    }
+}
+
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api 'androidx.cardview:cardview:1.0.0'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.palette:palette:1.0.0'
+    api 'com.google.android.material:material:1.2.1'
+    api 'com.google.android.gms:play-services-ads:19.6.0'
+
+    api 'com.google.code.gson:gson:2.8.6'
+
+    api 'info.androidhive:imagefilters:1.0.7'
+    api 'io.reactivex.rxjava2:rxjava:2.2.8'
+    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api 'com.github.bumptech.glide:glide:4.11.0'
+    api 'com.github.QuadFlask:colorpicker:0.0.15'
+    api 'com.github.yukuku:ambilwarna:2.0.1'
+
+    implementation group: 'org.tensorflow', name: 'tensorflow-android', version: '1.5.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+}
+repositories {
+    google()
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    mavenCentral()
+}
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.gms.google-services'
