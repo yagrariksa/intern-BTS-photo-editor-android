@@ -15,6 +15,7 @@ import com.tools.photolab.effect.support.MyExceptionHandlerPix;
 
 
 public class SplashActivity extends AppCompatActivity {
+    private Handler mWaitHandeler = new Handler();
 
 
     public static Bitmap getBitmapFromRes(Resources res, int resId, int reqWidth, int reqHeight) {
@@ -58,13 +59,21 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        ((ImageView) findViewById(R.id.ivSplashBG)).setImageBitmap(getBitmapFromRes(getResources(), R.drawable.ic_splash_bg, 512, 512));
 
         Thread.setDefaultUncaughtExceptionHandler(new MyExceptionHandlerPix(SplashActivity.this));
 
-        startActivity(new Intent(SplashActivity.this, HomeActivity.class));
-        overridePendingTransition(R.anim.enter, R.anim.exit);
-        finish();
+        mWaitHandeler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    overridePendingTransition(R.anim.enter, R.anim.exit);
+                    finish();
+                }catch (Exception ignored){
+                    ignored.printStackTrace();
+                }
+            }
+        }, 3000);
 
     }
 

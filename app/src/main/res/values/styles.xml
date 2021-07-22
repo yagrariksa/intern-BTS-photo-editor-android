@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/mainBackground</item>
     </style>
 
 
@@ -195,6 +196,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="SplashText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0.1</item>
+        <item name="android:textColor">#ACA7F4</item>
     </style>
 
 </resources>

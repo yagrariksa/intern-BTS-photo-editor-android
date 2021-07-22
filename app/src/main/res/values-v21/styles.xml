@@ -6,4 +6,5 @@
         <item name="android:progressTint">@color/colorBlack</item>
         <item name="android:colorControlActivated">@color/colorBlack</item>
     </style>
+
 </resources>

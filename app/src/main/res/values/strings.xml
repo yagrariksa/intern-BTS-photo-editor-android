@@ -119,6 +119,7 @@
     <string name="txt_app_share_info">App Share Text:  https://play.google.com/store/apps/details?id=PACKAGE_NAME</string>
     <string name="rate_dialog_cancel">Remind Me Later</string>
     <string name="rate_dialog_no">No, Thanks</string>
+    <string name="app_name_caps">BTS PHOTO EDITOR</string>
 
 
 </resources>

@@ -27,4 +27,6 @@
     <color name="toolbar_border">#d0d0d0</color>
     <color name="bg_toolbar">#fefefe</color>
     <color name="color_select">#93e037</color>
+    
+    <color name="mainBackground">#0E0E0E</color>
 </resources>
