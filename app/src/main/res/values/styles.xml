@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/mainBackground</item>
+        <item name="android:windowBackground">@color/mainColor</item>
     </style>
 
 
@@ -204,4 +204,8 @@
         <item name="android:textColor">#ACA7F4</item>
     </style>
 
+    <style name="HomeBtnText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/mainColor</item>
+    </style>
 </resources>

@@ -7,7 +7,7 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="@dimen/margin_100"
+        android:layout_width="@dimen/margin_250"
         android:adjustViewBounds="true"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content"

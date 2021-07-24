@@ -36,7 +36,7 @@ public class ShareActivity extends BaseActivity {
                 FullScreenAdManager.fullScreenAdsCheckPref(ShareActivity.this, FullScreenAdManager.ALL_PREFS.ATTR_ON_HOME_SCREEN, new FullScreenAdManager.GetBackPointer() {
                     @Override
                     public void returnAction() {
-                        Intent finishIntent = new Intent(ShareActivity.this, HomeActivity.class);
+                        Intent finishIntent = new Intent(ShareActivity.this, MyHomeActivity.class);
                         finishIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(finishIntent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);

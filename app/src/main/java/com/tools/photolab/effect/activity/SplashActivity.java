@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    startActivity(new Intent(SplashActivity.this, MyHomeActivity.class));
                     overridePendingTransition(R.anim.enter, R.anim.exit);
                     finish();
                 }catch (Exception ignored){

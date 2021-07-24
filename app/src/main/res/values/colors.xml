@@ -28,5 +28,7 @@
     <color name="bg_toolbar">#fefefe</color>
     <color name="color_select">#93e037</color>
     
-    <color name="mainBackground">#0E0E0E</color>
+    <color name="mainColor">#0E0E0E</color>
+    <color name="softPink">#F4A7BB</color>
+    <color name="softPurple">#ACA7F4</color>
 </resources>
