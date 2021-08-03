@@ -169,10 +169,10 @@ public class MyHomeActivity extends BaseActivity {
             StoreManager.setCurrentCroppedMaskBitmap(MyHomeActivity.this, (Bitmap) null);
 
             Bitmap bitmap = Constants.getBitmapFromUri(MyHomeActivity.this, mSelectedImageUri, (float) screenWidth, (float) screenHeight);
-            NeonActivity.setFaceBitmap(bitmap);
+            MyEditorActivity.setFaceBitmap(bitmap);
             StoreManager.setCurrentOriginalBitmap(this, bitmap);
 
-            startActivity(new Intent(this, NeonActivity.class));
+            startActivity(new Intent(this, MyEditorActivity.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
