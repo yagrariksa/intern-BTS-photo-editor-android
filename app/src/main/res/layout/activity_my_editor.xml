@@ -23,7 +23,7 @@
             android:src="@drawable/ic_arrow_back" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/iv_save"
             style="@style/saveBtnText"
             android:text="@string/txt_save" />
     </RelativeLayout>
