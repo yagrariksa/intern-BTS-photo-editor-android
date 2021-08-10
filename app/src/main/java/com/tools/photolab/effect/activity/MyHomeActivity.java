@@ -1,7 +1,6 @@
 package com.tools.photolab.effect.activity;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.storage.StorageManager;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -20,13 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
 import com.tools.photolab.BuildConfig;
 import com.tools.photolab.R;
+import com.tools.photolab.effect.ads.FullScreenAdManager;
 import com.tools.photolab.effect.crop_img.newCrop.StoreManager;
 import com.tools.photolab.effect.support.Constants;
 import com.tools.photolab.effect.support.MyExceptionHandlerPix;
@@ -70,14 +68,14 @@ public class MyHomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (requestCameraStoragePermission())
-                    pixDialog(false);
+                    pickImage(false);
             }
         });
         mPickCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (requestCameraStoragePermission())
-                    pixDialog(true);
+                    pickImage(true);
             }
         });
     }
@@ -110,7 +108,7 @@ public class MyHomeActivity extends BaseActivity {
         return true;
     }
 
-    public void pixDialog(Boolean camera) {
+    public void pickImage(Boolean camera) {
         if (camera) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             Uri photoURI = FileProvider.getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", createImageFile());
@@ -129,9 +127,10 @@ public class MyHomeActivity extends BaseActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_CAMERA) {
+            Log.e("onActivityResult","RETRIEVE FROM CAMERA");
             mSelectedImagePath = mSelectedOutputPath;
             if (SupportedClass.stringIsNotEmpty(mSelectedImagePath)) {
                 File fileImageClick = new File(mSelectedImagePath);
@@ -141,10 +140,11 @@ public class MyHomeActivity extends BaseActivity {
                     } else {
                         mSelectedImageUri = FileProvider.getUriForFile(MyHomeActivity.this, BuildConfig.APPLICATION_ID + ".provider", fileImageClick);
                     }
-                    startEditorActivity();
+                    startCropActivity();
                 }
             }
         } else if (data != null && data.getData() != null) {
+            Log.e("onActivityResult","RETRIEVE FROM GALLERY");
             if (requestCode == REQUEST_CODE_GALLERY) {
                 mSelectedImageUri = data.getData();
                 if (mSelectedImageUri != null) {
@@ -156,26 +156,42 @@ public class MyHomeActivity extends BaseActivity {
                 mSelectedImagePath = mSelectedOutputPath;
             }
             if (SupportedClass.stringIsNotEmpty(mSelectedImagePath)) {
-                startEditorActivity();
+                startCropActivity();
             }
-        } else {
-            Log.e("TAG", "");
+        } else if (resultCode == RESULT_OK && data != null && requestCode == REQUEST_CODE_CROPPING ){
+            Log.e("onActivityResult","RETRIEVE FROM CROPPING");
+            if (data.hasExtra("croppedUri")) {
+                mSelectedImageUri = data.getParcelableExtra("croppedUri");
+                Bitmap bitmap = null;
+                try {
+                    bitmap = Constants.getBitmapFromUriDrip(MyHomeActivity.this, mSelectedImageUri, 1080, 1080);
+                    MyEditorActivity.setFaceBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (bitmap != null) {
+                    //  mSelectedImagePath = Constants.convertMediaUriToPath(MyHomeActivity.this, mSelectedImageUri);
+
+                    FullScreenAdManager.fullScreenAdsCheckPref(MyHomeActivity.this, FullScreenAdManager.ALL_PREFS.ATTR_ON_FIRST_PIX_SCREEN, new FullScreenAdManager.GetBackPointer() {
+                        @Override
+                        public void returnAction() {
+                            Intent intent = new Intent(MyHomeActivity.this, MyEditorActivity.class);
+//                                intent.putExtra(Constants.KEY_SELECTED_IMAGE_PATH, mSelectedImagePath);
+                            intent.putExtra(Constants.KEY_FROM_MAIN, getString(R.string.txt_gallery));
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.enter, R.anim.exit);
+                        }
+                    });
+
+                }
+            }
         }
     }
 
-    private void startEditorActivity() {
-        try {
-            StoreManager.setCurrentCropedBitmap(MyHomeActivity.this, (Bitmap) null);
-            StoreManager.setCurrentCroppedMaskBitmap(MyHomeActivity.this, (Bitmap) null);
-
-            Bitmap bitmap = Constants.getBitmapFromUri(MyHomeActivity.this, mSelectedImageUri, (float) screenWidth, (float) screenHeight);
-            MyEditorActivity.setFaceBitmap(bitmap);
-            StoreManager.setCurrentOriginalBitmap(this, bitmap);
-
-            startActivity(new Intent(this, MyEditorActivity.class));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void startCropActivity() {
+        Intent intent = new Intent(MyHomeActivity.this, CropPhotoActivity.class);
+        intent.putExtra("cropUri", mSelectedImageUri.toString());
+        startActivityForResult(intent, REQUEST_CODE_CROPPING);
     }
 
     private File createImageFile() {
@@ -194,4 +210,5 @@ public class MyHomeActivity extends BaseActivity {
         }
         return image;
     }
+
 }

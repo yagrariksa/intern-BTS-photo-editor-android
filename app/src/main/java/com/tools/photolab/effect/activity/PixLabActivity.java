@@ -162,7 +162,6 @@ public class PixLabActivity extends BaseActivity implements View.OnClickListener
             filteredForegroundBitmap3 = bmpPic.copy(Bitmap.Config.ARGB_8888, true);
             filteredForegroundBitmap4 = bmpPic.copy(Bitmap.Config.ARGB_8888, true);
 
-
             mRecyclerPIXStyle.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             mRecyclerForegroundFilter.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             Bitmap thumbBitmap = ThumbnailUtils.extractThumbnail(bmpPic, 128, 128);
