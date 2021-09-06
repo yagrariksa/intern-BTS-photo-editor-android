@@ -62,25 +62,16 @@
                         android:gravity="center">
 
                         <ImageView
-                            android:id="@+id/iv_face"
+                            android:id="@+id/iv_mov"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="visible" />
 
                         <ImageView
-                            android:id="@+id/setback"
+                            android:id="@+id/main_frame"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
-                        <ImageView
-                            android:id="@+id/setimg"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                        <ImageView
-                            android:id="@+id/setfront"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
                     </RelativeLayout>
 
                     <com.tools.photolab.effect.custom.stickerView.StickerView
@@ -97,13 +88,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_100">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerForegroundFilter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_75"
+                    android:background="@color/colorBlack"
+                    android:orientation="horizontal"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerSticker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_75"
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
-                    android:background="@color/colorBlack"
+                    android:background="@color/colorWhite"
+                    android:visibility="visible"
                     app:tabGravity="fill"
                     app:tabIndicatorHeight="0dp"
                     app:tabMode="fixed"
@@ -134,54 +142,6 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="@dimen/margin_25"
-                    android:background="@color/colorRecyclerViewBack" />
-
-                <LinearLayout
-                    android:id="@+id/linEffect"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_100"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical"
-                    android:visibility="visible">
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_25"
-                        android:background="#55000000"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/margin_10"
-                        android:paddingRight="@dimen/margin_5">
-
-                        <androidx.appcompat.widget.AppCompatSeekBar
-                            android:id="@+id/sbFrameOpacity"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:max="100"
-                            android:progress="100"
-                            android:progressTint="@android:color/white"
-                            android:thumbTint="@android:color/white" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerForegroundFilter"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_75"
-                        android:background="@color/colorBlack"
-                        android:orientation="horizontal"
-                        android:scrollbars="none"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/custom_bottom_tab" />
-                </LinearLayout>
             </RelativeLayout>
 
         </LinearLayout>
@@ -239,11 +199,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerSticker"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible" />
 
             </RelativeLayout>
         </LinearLayout>

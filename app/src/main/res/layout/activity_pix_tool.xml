@@ -124,6 +124,8 @@
                 android:background="@color/colorRecyclerViewBack"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
+                android:orientation="horizontal"
+                tools:listitem="@layout/custom_pix_tab"
                 android:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
